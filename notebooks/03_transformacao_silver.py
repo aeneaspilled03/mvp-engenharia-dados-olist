@@ -8,7 +8,7 @@
 # MAGIC | Problema medido na Bronze | Tratamento na Silver |
 # MAGIC |---|---|
 # MAGIC | Tudo é `STRING` | tipagem explícita: `timestamp`, `int`, `decimal(10,2)` |
-# MAGIC | 559 pedidos com mais de uma avaliação | mantém apenas a avaliação mais recente por pedido |
+# MAGIC | 555 pedidos com mais de uma avaliação (559 linhas excedentes) | mantém apenas a avaliação mais recente por pedido |
 # MAGIC | 261.831 linhas duplicadas em geolocalização | uma linha por CEP, com mediana das coordenadas |
 # MAGIC | 42 coordenadas fora do Brasil | descartadas antes de calcular a mediana |
 # MAGIC | Cidades com acento/encoding/sufixo de UF inconsistentes | `normaliza_cidade()` |
@@ -302,7 +302,8 @@ salva_tabela(
 # MAGIC %md
 # MAGIC ## 3.6 `silver.avaliacoes` — deduplicação para um voto por pedido
 # MAGIC
-# MAGIC A Bronze tem 100.000 avaliações para 99.441 pedidos: 559 pedidos receberam mais de uma.
+# MAGIC A Bronze tem 100.000 avaliações para 99.441 pedidos: 555 pedidos receberam mais de uma
+# MAGIC (559 linhas excedentes no total).
 # MAGIC Como a pergunta de negócio é "qual a nota **daquele pedido**", o grão precisa ser o pedido.
 # MAGIC Critério de desempate: fica a avaliação **respondida por último**, que é a manifestação mais
 # MAGIC recente do cliente; `review_id` serve de critério final para tornar o resultado determinístico.
