@@ -18,6 +18,10 @@ Plataforma: **Databricks Free Edition** (Unity Catalog + Delta Lake + Apache Spa
 | Análise de Dados (Etapa 4.5) | [6](#6-análise-de-dados-etapa-45) |
 | Autoavaliação | [7](#7-autoavaliação) |
 
+**Execução:** todo o pipeline foi executado no Databricks Free Edition, no catálogo Unity Catalog
+`olist_mvp` (schemas `bronze`, `silver`, `gold`). Os screenshots de evidência estão distribuídos ao
+longo das seções correspondentes e reunidos em `docs/img/`.
+
 **Estrutura do repositório**
 
 ```
@@ -176,6 +180,18 @@ clientes contêm quebras de linha dentro do campo aspeado — sem isso o arquivo
 errado de linhas) e a remoção do **BOM** que a fonte deixou grudado no nome da primeira coluna do
 arquivo de tradução.
 
+### 2.3 Evidências da carga
+
+Os nove arquivos no Volume `olist_mvp.bronze.landing`, com as tabelas Bronze já criadas na árvore
+do Catalog Explorer à esquerda:
+
+![Volume landing com os CSVs coletados](docs/img/ev2_volume_landing_bronze.png)
+
+Contagem de linhas de cada tabela Bronze, saída do próprio notebook `01_ingestao_bronze` — os
+mesmos números da tabela da seção 1.3:
+
+![Contagem de linhas por tabela Bronze](docs/img/ev3_bronze_contagem_linhas.png)
+
 ---
 
 ## 3. Modelagem e Catálogo de Dados (Etapa 4.3)
@@ -275,6 +291,22 @@ linhas reais do catálogo:
 | `dias_atraso` | `double` | atributo | Entrega real menos prazo prometido, em dias. Negativo = adiantado. |
 | `meio_pagamento_principal` | `string` | atributo | Meio de pagamento da transação de maior valor do pedido. Domínio: credit_card, boleto, voucher, debit_card, not_defined. |
 | `distancia_km` | `double` | atributo | Distância em linha reta (Haversine) entre o CEP do vendedor e o do cliente. Nula quando algum dos CEPs não tem coordenada. |
+
+### 3.4 Evidências da modelagem e do catálogo
+
+As seis tabelas da camada Gold no Catalog Explorer — repare que a coluna *Comment* já traz a
+descrição de cada tabela, gravada pelo notebook `07`:
+
+![Camada Gold no Catalog Explorer](docs/img/ev1_catalog_explorer_gold.png)
+
+As oito tabelas da camada Silver, no mesmo catálogo:
+
+![Camada Silver no Catalog Explorer](docs/img/ev8_catalog_explorer_silver.png)
+
+E o catálogo de dados **dentro** do Unity Catalog: `DESCRIBE TABLE EXTENDED gold.fato_pedido`
+devolvendo tipo e descrição de cada uma das colunas do fato:
+
+![Comentários de coluna no Unity Catalog](docs/img/ev6_catalogo_unity_catalog.png)
 
 ---
 
@@ -413,6 +445,17 @@ Bronze conferem com os da Gold **ao centavo** (diferença de 0 centavos em R$ 13
 produtos e R$ 2.251.909,54 de frete). Se divergissem, alguma transformação teria perdido ou
 duplicado dinheiro, e nenhuma análise adiante valeria nada.
 
+### 5.3.1 Evidências
+
+As 36 verificações sobre a Bronze, ordenadas por número de ocorrências — a coluna `situacao`
+separa o que precisa de tratamento do que já está limpo:
+
+![Verificações de qualidade sobre a Bronze](docs/img/ev4_qualidade_bronze_checks.png)
+
+Os 21 testes pós-carga e o veredito final:
+
+![Testes pós-carga da camada Gold](docs/img/ev5_testes_pos_carga_gold.png)
+
 ### 5.4 Cobertura: quanto da base sustenta cada resposta
 
 | Recorte | Pedidos | % |
@@ -462,6 +505,10 @@ penhasco. Uma semana é o tempo que a paciência do cliente compra. E o inverso 
 *muito* adiantado (mais de 10 dias) rende 4,31 contra 4,23 de quem chega apenas adiantado — uma
 diferença pequena, o que sugere que **antecipar a entrega tem retorno marginal decrescente, enquanto
 atrasar tem custo explosivo.** A assimetria justifica prazo conservador.
+
+Execução da consulta na plataforma (P1.b e P1.c, respostas idênticas às tabelas acima):
+
+![Resultado de P1 no Databricks](docs/img/ev7_analise_p1_atraso_nota.png)
 
 ### P2 · Onde o tempo é perdido?
 
