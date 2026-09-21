@@ -1,0 +1,11 @@
+# artefatos locais
+__pycache__/
+*.pyc
+.venv/
+warehouse/
+spark-warehouse/
+metastore_db/
+
+# dados brutos (baixados pelo notebook 01, nao versionados)
+data/
+*.csv
