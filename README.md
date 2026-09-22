@@ -806,7 +806,7 @@ penhasco. Uma semana é o tempo que a paciência do cliente compra. E o inverso 
 diferença pequena, o que sugere que **antecipar a entrega tem retorno marginal decrescente, enquanto
 atrasar tem custo explosivo.** A assimetria justifica prazo conservador.
 
-Execução da consulta na plataforma (P1.b e P1.c, respostas idênticas às tabelas acima):
+Execução no Databricks:
 
 ![Resultado de P1 no Databricks](docs/img/ev7_analise_p1_atraso_nota.png)
 
@@ -819,6 +819,10 @@ Execução da consulta na plataforma (P1.b e P1.c, respostas idênticas às tabe
 | Entregues com atraso | 7.820 | 12,3 | **5,32** | **25,69** | **31,53** |
 
 Mediana do ciclo total: 10,22 dias; percentil 90: 23,09 dias.
+
+Execução no Databricks:
+
+![Resultado de P2 no Databricks](docs/img/ev_p2_etapas_ciclo.png)
 
 **Resposta.** O transporte é onde o tempo mora e onde ele se perde. Num pedido pontual, o ciclo é
 10,9 dias: 10 horas para aprovar o pagamento, 2,6 dias para o lojista postar, 7,9 dias na estrada.
@@ -836,7 +840,7 @@ a P5 mostra, na distância que ela precisa vencer.
 
 | Pedidos | Prazo prometido | Entrega real | Folga média | Folga mediana | Dentro do prazo |
 |---:|---:|---:|---:|---:|---:|
-| 96.470 | 23,7 dias | 12,6 dias | **11,2 dias** | 11,9 dias | **91,9%** |
+| 96.470 | 23,7 dias | 12,6 dias | **11,2 dias** | 12,0 dias | **91,9%** |
 
 Por região do cliente:
 
@@ -847,6 +851,10 @@ Por região do cliente:
 | Centro-Oeste | 5.624 | 26,7 | 15,0 | 11,6 | 7,9% |
 | Sudeste | 66.193 | 21,6 | 10,8 | 10,9 | 7,4% |
 | Nordeste | 9.044 | 30,7 | 20,0 | **10,6** | **14,3%** |
+
+Execução no Databricks:
+
+![Resultado de P3 no Databricks](docs/img/ev_p3_prazo_prometido.png)
 
 **Resposta.** Muito conservador. A Olist promete 23,7 dias e entrega em 12,6: embute **11,2 dias de
 folga**, quase **90% de gordura** sobre o tempo que efetivamente leva. O resultado é que 91,9% dos
@@ -873,6 +881,10 @@ onde não é.
 | Centro-Oeste | 5.624 | 15,0 | 7,9% | 4,12 | R$ 26,49 | 900 km |
 | Sul | 13.813 | 14,0 | 7,0% | 4,18 | R$ 24,35 | 654 km |
 | Sudeste | 66.193 | **10,8** | 7,4% | **4,17** | R$ 19,84 | 359 km |
+
+Execução no Databricks:
+
+![Resultado de P4 no Databricks](docs/img/ev_p4_desempenho_regiao_uf.png)
 
 **Resposta.** Não. Um cliente do Norte espera **22,6 dias**; um do Sudeste, **10,8** — mais que o
 dobro. No extremo por UF, São Paulo recebe em **8,8 dias** e Alagoas em **24,5**, com 23,9% de
@@ -901,6 +913,10 @@ prazo do país, e mesmo assim apenas 4,1% de atraso e nota 4,23 — acima da mé
 Correlações (112.077 itens): **peso 0,612** · **volume 0,587** · valor do produto 0,415 ·
 **distância 0,390**.
 Item interestadual: R$ 23,69 de frete (15,4% do total); dentro do mesmo estado: R$ 13,46 (11,4%).
+
+Execução no Databricks:
+
+![Resultado de P5 no Databricks](docs/img/ev_p5_frete_regiao_distancia.png)
 
 **Resposta.** O frete triplica da faixa mais curta para a mais longa, e sua participação no bolso do
 cliente sobe de 10,6% para 18,6%. Mas a correlação diz que **a distância não é o fator dominante: o
@@ -943,6 +959,10 @@ Piores notas entre categorias relevantes (≥ 500 itens):
 | moveis_sala | 503 | R$ 68.917 | 3,88 | 18,5% | 7,8% |
 | moveis_decoracao | 8.334 | R$ 729.762 | 3,89 | 19,8% | 8,3% |
 
+Execução no Databricks:
+
+![Resultado de P6 no Databricks](docs/img/ev_p6_categorias_receita_nota.png)
+
 **Resposta.** Sim, existe — e é justamente onde mais dói. **`cama_mesa_banho` é a terceira maior
 fonte de receita (R$ 1,04 milhão, 7,6%) e ao mesmo tempo a terceira pior nota entre as categorias
 relevantes (3,87, com 19,5% de detratores).** `moveis_decoracao` repete o padrão: 5,4% da receita com
@@ -964,6 +984,10 @@ independente da entrega, que um projeto focado só em prazo deixaria passar.
 | 50% da receita | 129 | **4,2%** |
 | 80% da receita | 543 | 17,5% |
 | 90% da receita | 911 | 29,4% |
+
+Execução no Databricks:
+
+![Resultado de P7 no Databricks](docs/img/ev_p7_pareto_vendedores.png)
 
 **Resposta.** Extremamente concentrada, além do que a regra de Pareto prevê. **129 vendedores —
 4,2% da base — respondem por metade de toda a receita**; 543 (17,5%) respondem por 80%. Os 2.184
@@ -993,6 +1017,10 @@ que gestão de qualidade de vendedor deveria ser ponderada por volume, não unif
 | 7 a 10× | 11.832 | **R$ 334,97** | 3,98 |
 | 11× ou mais | 341 | **R$ 359,36** | **3,84** |
 
+Execução no Databricks:
+
+![Resultado de P8 no Databricks](docs/img/ev_p8_meios_pagamento.png)
+
 **Resposta.** O parcelamento acompanha o ticket de forma quase monotônica: **R$ 120,56 à vista
 contra R$ 359,36 em 11 ou mais parcelas — praticamente o triplo.** O cartão domina o checkout com
 75,4% dos pedidos; o boleto, com 19,9%, é sempre à vista e tem ticket 13% menor.
@@ -1007,18 +1035,24 @@ duas exigiria dados de peso por pedido cruzados com expectativa — fica registr
 
 | Situação do 1º pedido | Clientes | Voltaram a comprar | Taxa de recompra |
 |---|---:|---:|---:|
-| primeiro pedido no prazo | 85.753 | 2.611 | **3,04%** |
-| primeiro pedido atrasou | 7.597 | 190 | **2,50%** |
+| primeiro pedido no prazo | 85.748 | 2.606 | **3,04%** |
+| primeiro pedido atrasou | 7.602 | 195 | **2,57%** |
 
 Recorrência na base: 2.997 de 96.096 pessoas (**3,12%**).
 
+Execução no Databricks:
+
+![Resultado de P9 no Databricks](docs/img/ev_p9_recompra.png)
+
 **Resposta — parcial, e esta é a pergunta que o dataset não permite fechar.** A direção é a
-esperada: quem teve o primeiro pedido atrasado volta menos (2,50% contra 3,04%), uma queda relativa
-de 18%. Mas a base é frágil demais para sustentar a conclusão. **Apenas 3,12% das pessoas compram
+esperada: quem teve o primeiro pedido atrasado volta menos (2,57% contra 3,04%), uma queda relativa
+de 15%. Mas a base é frágil demais para sustentar a conclusão. **Apenas 3,12% das pessoas compram
 mais de uma vez** em toda a janela, e a janela tem apenas 25 meses com **censura à direita**: quem
-comprou em outubro de 2018 não teve tempo de voltar antes de o dataset terminar. Os 190 clientes
+comprou em outubro de 2018 não teve tempo de voltar antes de o dataset terminar. Os 195 clientes
 que recompraram após um atraso são poucos para descartar o acaso, e não há como separar "não voltou
-porque ficou insatisfeito" de "não voltou ainda".
+porque ficou insatisfeito" de "não voltou ainda". Há ainda uma fragilidade na própria consulta: quando
+a pessoa fez dois pedidos no mesmo dia, o desempate de qual foi o "primeiro" é arbitrário, o que move
+essas contagens em algumas unidades entre execuções — sem alterar a direção do resultado.
 
 **O que isso significa.** O honesto é dizer que **o sinal existe e aponta na direção esperada, mas o
 dado não sustenta uma afirmação causal.** Responder isso direito exigiria um horizonte de observação
