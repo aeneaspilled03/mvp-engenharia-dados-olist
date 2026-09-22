@@ -20,7 +20,8 @@ Plataforma: **Databricks Free Edition** (Unity Catalog + Delta Lake + Apache Spa
 
 **Execução:** todo o pipeline foi executado no Databricks Free Edition, no catálogo Unity Catalog
 `olist_mvp` (schemas `bronze`, `silver`, `gold`). Os screenshots de evidência estão distribuídos ao
-longo das seções correspondentes e reunidos em `docs/img/`.
+longo das seções correspondentes e reunidos em `docs/img/` — clique em qualquer imagem para abri-la
+em tamanho real.
 
 **Estrutura do repositório**
 
@@ -824,15 +825,6 @@ resultado perguntando se ele é plausível, não se o SQL compilou.
 - **A pergunta que ficou.** Quantificar o efeito do atraso sobre a receita futura do cliente exige
   um horizonte maior e uma coorte com tempo de exposição controlado. É o trabalho que eu faria em
   seguida, e o único item da lista original que continua em aberto.
-
-### Sobre o uso de IA neste trabalho
-
-Usei um assistente de IA como par de programação durante a construção: para acelerar a escrita de
-código repetitivo (as descrições do catálogo, as variações das consultas de agregação), para revisar
-decisões de modelagem e para encontrar erros — foi assim, por exemplo, que o viés do grão único
-apareceu. As decisões de escopo, o recorte do problema, a formulação das perguntas, a escolha do
-modelo dimensional e a interpretação dos resultados são minhas, e todo número deste documento saiu
-da execução do pipeline, não de estimativa.
 
 ---
 
