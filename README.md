@@ -146,8 +146,10 @@ sobrescritas (`mode("overwrite")`), de modo que reexecutar o pipeline inteiro n�
 
 **Sobre a origem do download.** O dataset é publicado no Kaggle, cujo download exige autenticação —
 o que quebraria a reprodutibilidade para qualquer avaliador sem credencial. A coleta aponta, por
-isso, para um **espelho público** dos mesmos arquivos, e o notebook registra tamanho e **hash MD5**
-de cada arquivo baixado, permitindo verificar que o conteúdo é idêntico ao publicado pela Olist:
+isso, para um **espelho público** dos arquivos. Para que não reste dúvida sobre *qual* versão dos
+dados sustenta cada número deste documento, o notebook registra tamanho e **hash MD5** de cada
+arquivo baixado — o inventário abaixo identifica exatamente os arquivos usados e permite
+reexecutar o pipeline sobre o mesmo material:
 
 | Arquivo | Bytes | MD5 |
 |---|---:|---|
@@ -160,6 +162,13 @@ de cada arquivo baixado, permitindo verificar que o conteúdo é idêntico ao pu
 | olist_products_dataset.csv | 2.379.446 | `e935401104a3669223b83c9a01fdf5ca` |
 | olist_sellers_dataset.csv | 174.703 | `5b22c02facdf842d6c0aea36e1849018` |
 | product_category_name_translation.csv | 2.613 | `4196d142e8f2b9697521fc50c97f626b` |
+
+Uma ressalva de proveniência: o arquivo de avaliações deste espelho tem **100.000 linhas**, e é
+sobre ele que toda a perfilagem e a deduplicação descritas adiante foram feitas. O dataset da Olist
+teve mais de uma publicação ao longo do tempo, e não foi possível confrontar estes arquivos com o
+pacote atual do Kaggle a partir do ambiente de execução. Os hashes acima resolvem a ambiguidade na
+prática: quem quiser auditar qualquer número deste documento reexecuta o notebook `01` e obtém
+exatamente os mesmos arquivos.
 
 ### 2.2 Como o dado bruto foi gravado
 
